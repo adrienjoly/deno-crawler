@@ -1,6 +1,6 @@
 # Node Crawler
 
-Experimental project, just to play with `deno`.
+Experimental project with @sbellone, just to play with `deno`.
 
 ## Usage
 
