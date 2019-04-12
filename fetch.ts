@@ -3,10 +3,9 @@
 import {request} from "./../deno-request/request.ts"
 
 (async () => {
-  // GET
-  const {status, headers, body} = await request("http://httpbin.org/get?deno=land");
+  // warning: does not support HTTPS
+  const {status, headers, body} = await request("http://example.com");
   const buf = new Deno.Buffer();
   await Deno.copy(buf, body);
-  const json = JSON.parse(buf.toString());
-  console.log(json);
+  console.log(buf.toString());
 })();
