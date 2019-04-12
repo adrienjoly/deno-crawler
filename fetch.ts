@@ -5,7 +5,9 @@ const RE_TITLE = /<title>(.*)<\/title>/;
 
 async function fetchLinks({ url }) {
   const res = await fetch(url);
+  // console.log({ url, res });
   const { contentType } = res.body;
+  // console.log({ url, contentType });
   const html = await res.text(); // we should await text() in all cases, otherwise a promise prevents the program to exit in the non-html case
   if (contentType.includes('text/html')) {
     const title = html.match(RE_TITLE).pop();
@@ -19,7 +21,7 @@ async function fetchLinks({ url }) {
 
 async function crawl ({ remainingUrls = 1, url, addRecord }) {
   if (remainingUrls <= 0) return;
-  //console.log('fetching', {url});
+  console.log(`- fetching ${url}...`);
   const page = await fetchLinks({ url });
   if (!page) return; // not an html page
   addRecord({ url, title: page.title });
@@ -43,7 +45,7 @@ async function crawl ({ remainingUrls = 1, url, addRecord }) {
   const addRecord = ({ url, title }) => crawledRecords.push({ url, title });
   
   // actual crawling process
-  const remainingUrls = 2;
+  const remainingUrls = 20;
   console.log(`crawling ${remainingUrls} pages from ${url}...`)
   await crawl({ remainingUrls, url, addRecord });
 
